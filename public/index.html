@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mall Mapping Application</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="loginScreen" class="screen active">
+        <div class="login-container">
+            <div class="login-header">
+                <div class="logo-animation">
+                    <i class="fas fa-map-location-dot"></i>
+                </div>
+                <h1 class="main-title">Mall Mapper</h1>
+                <p class="subtitle">Discover. Explore. Shop.</p>
+            </div>
+
+            <div class="login-options">
+                <button type="button" class="login-btn admin-login-btn" id="adminBtn">
+                    <div class="btn-content">
+                        <i class="fas fa-shield-halved"></i>
+                        <span>Admin Login</span>
+                    </div>
+                    <div class="btn-glow"></div>
+                </button>
+
+                <button type="button" class="login-btn user-login-btn" id="userBtn">
+                    <div class="btn-content">
+                        <i class="fas fa-user"></i>
+                        <span>User Login</span>
+                    </div>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+
+            <div class="floating-elements">
+                <div class="float-item item-1"></div>
+                <div class="float-item item-2"></div>
+                <div class="float-item item-3"></div>
+                <div class="float-item item-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminLoginScreen" class="screen">
+        <button type="button" class="back-btn" id="adminBackBtn">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+
+        <div class="auth-container">
+            <div class="auth-card">
+                <h2 class="auth-title">Admin Access</h2>
+                <p class="auth-subtitle">Manage your malls with power</p>
+
+                <form class="auth-form" id="adminLoginForm">
+                    <div class="form-group">
+                        <label for="adminEmail">Email</label>
+                        <input type="email" id="adminEmail" placeholder="admin@example.com" required>
+                        <div class="input-focus-line"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adminPassword">Password</label>
+                        <input type="password" id="adminPassword" placeholder="••••••••" required>
+                        <div class="input-focus-line"></div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <span>Enter Admin Panel</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="demo-credentials">
+                    <p>Demo: admin@mall.com / admin123</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="userLoginScreen" class="screen">
+        <button type="button" class="back-btn" id="userBackBtn">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+
+        <div class="auth-container">
+            <div class="auth-card">
+                <h2 class="auth-title">Welcome Back</h2>
+                <p class="auth-subtitle">Sign in to explore malls</p>
+
+                <form class="auth-form" id="userLoginForm">
+                    <div class="form-group">
+                        <label for="userEmail">Email</label>
+                        <input type="email" id="userEmail" placeholder="you@example.com" required>
+                        <div class="input-focus-line"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userPassword">Password</label>
+                        <input type="password" id="userPassword" placeholder="••••••••" required>
+                        <div class="input-focus-line"></div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <span>Sign In</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="demo-credentials" style="cursor: pointer;" onclick="switchScreen('userRegisterScreen')">
+                    <p>Don't have an account? <b>Register here</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="userRegisterScreen" class="screen">
+        <button type="button" class="back-btn" id="registerBackBtn">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <div class="auth-container">
+            <div class="auth-card">
+                <h2 class="auth-title">Create Account</h2>
+                <p class="auth-subtitle">Join us to explore malls</p>
+
+                <form class="auth-form" id="userRegisterForm">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="regName" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="regEmail" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="regPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <span>Sign Up</span>
+                        <i class="fas fa-user-plus"></i>
+                    </button>
+                </form>
+                <div class="demo-credentials" style="cursor: pointer;" onclick="switchScreen('userLoginScreen')">
+                    <p>Already have an account? <b>Login here</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="userDashboard" class="screen">
+        <div class="user-navbar">
+            <div class="navbar-content">
+                <h1 class="navbar-title">Malls Near You</h1>
+                <div class="navbar-icons">
+                    <button type="button" class="nav-icon-btn" onclick="openOrderHistoryModal()" title="My Orders">
+                        <i class="fas fa-history"></i>
+                    </button>
+                    <button type="button" class="nav-icon-btn" id="userCartBtn">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-badge" id="dashboardCartBadge">0</span>
+                    </button>
+                    <button type="button" class="nav-icon-btn" id="userLogoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="malls-container" id="mallsContainer">
+                </div>
+        </div>
+    </div>
+
+    <div id="shopsScreen" class="screen">
+        <div class="view-header">
+            <button type="button" class="back-btn" id="shopsBackBtn">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2 id="mallTitle" class="view-title">Mall Name</h2>
+            <div class="header-spacer"></div>
+        </div>
+
+        <div class="shops-container" id="shopsContainer">
+            </div>
+    </div>
+
+    <div id="productsScreen" class="screen">
+        <div class="view-header">
+            <button type="button" class="back-btn" id="productsBackBtn">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2 id="shopTitle" class="view-title">Shop Name</h2>
+            <button type="button" class="nav-icon-btn" id="productsCartBtn">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-badge" id="productsCartBadge">0</span>
+            </button>
+        </div>
+
+        <div class="products-container" id="productsContainer">
+            </div>
+    </div>
+
+    <div id="productModal" class="modal">
+        <div class="modal-overlay" onclick="closeProductModal()"></div>
+        <div class="modal-content">
+            <button type="button" class="modal-close" onclick="closeProductModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body">
+                <div id="productModalImage" class="modal-image"></div>
+                <div class="modal-info">
+                    <h2 id="productModalName">Product Name</h2>
+                    <p id="productModalDescription">Product description</p>
+                    <div class="modal-rating">
+                        <div class="stars" id="productModalRating"></div>
+                        <span id="productModalRatingText">0 reviews</span>
+                    </div>
+                    <div class="modal-price">
+                        <span id="productModalPrice">₹0.00</span>
+                    </div>
+                    <div class="modal-actions">
+                        <div class="quantity-selector">
+                            <button type="button" onclick="decreaseQuantity()">-</button>
+                            <input type="number" id="quantityInput" value="1" min="1">
+                            <button type="button" onclick="increaseQuantity()">+</button>
+                        </div>
+                        <button type="button" class="add-to-cart-btn" onclick="addCurrentProductToCart()">
+                            <i class="fas fa-shopping-bag"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button type="button" onclick="closeCartSidebar()" style="background: transparent; border: none; color: white; font-size: 24px; cursor: pointer;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">₹0.00</span>
+            </div>
+            <button type="button" class="checkout-btn" onclick="processCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <div id="adminDashboard" class="screen">
+        <div class="admin-container">
+            <aside class="admin-sidebar">
+                <div class="sidebar-header">
+                    <h2>Admin Panel</h2>
+                </div>
+                <nav class="admin-nav">
+                    <button type="button" class="nav-item active" onclick="switchAdminView('malls', event)">
+                        <i class="fas fa-building"></i>
+                        <span>Manage Malls</span>
+                    </button>
+                    <button type="button" class="nav-item" onclick="switchAdminView('shops', event)">
+                        <i class="fas fa-store"></i>
+                        <span>Manage Shops</span>
+                    </button>
+                    <button type="button" class="nav-item" onclick="switchAdminView('products', event)">
+                        <i class="fas fa-box"></i>
+                        <span>Manage Products</span>
+                    </button>
+                    <button type="button" class="nav-item" onclick="switchAdminView('orders', event)">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Manage Orders</span>
+                    </button>
+                    <button type="button" class="nav-item" onclick="generatePrintReport()">
+                        <i class="fas fa-print"></i>
+                        <span>Print Data Report</span>
+                    </button>
+                    <button type="button" class="nav-item logout-btn" id="adminLogoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </nav>
+            </aside>
+
+            <main class="admin-main">
+                <section id="mallsView" class="admin-view active">
+                    <div class="view-header">
+                        <h2>Manage Malls</h2>
+                        <button type="button" class="add-btn" onclick="openAddMallModal()">
+                            <i class="fas fa-plus"></i> Add New Mall
+                        </button>
+                    </div>
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Mall Name</th>
+                                    <th>Location</th>
+                                    <th>Description</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mallsTableBody">
+                                </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="shopsView" class="admin-view">
+                    <div class="view-header">
+                        <h2>Manage Shops</h2>
+                        <button type="button" class="add-btn" onclick="openAddShopModal()">
+                            <i class="fas fa-plus"></i> Add New Shop
+                        </button>
+                    </div>
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Shop Name</th>
+                                    <th>Mall</th>
+                                    <th>Category</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="shopsTableBody">
+                                </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="productsView" class="admin-view">
+                    <div class="view-header">
+                        <h2>Manage Products</h2>
+                        <button type="button" class="add-btn" onclick="openAddProductModal()">
+                            <i class="fas fa-plus"></i> Add New Product
+                        </button>
+                    </div>
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                   <th>Product Name</th>
+                                   <th>Shop</th>
+                                   <th>Price</th>
+                                   <th>Stock</th>
+                                   <th>Rating</th>
+                                   <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody">
+                                </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="ordersView" class="admin-view">
+                    <div class="view-header">
+                        <h2>Manage Orders</h2>
+                    </div>
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer Info</th>
+                                    <th>Delivery Details</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody">
+                                </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <div id="actionModal" class="modal">
+        <div class="modal-overlay" onclick="closeActionModal()"></div>
+        <div class="modal-content modal-form">
+            <button type="button" class="modal-close" onclick="closeActionModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body">
+                <h2 id="modalTitle">Add New Item</h2>
+                <form id="actionForm" class="action-form">
+                    </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="checkoutModal" class="modal">
+        <div class="modal-overlay" onclick="closeCheckoutModal()"></div>
+        <div class="modal-content modal-form">
+            <button type="button" class="modal-close" onclick="closeCheckoutModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body">
+                <h2 id="modalTitle">Complete Your Order</h2>
+                <form id="checkoutForm" class="action-form" onsubmit="submitOrder(event)">
+                    <div class="form-group">
+                        <label>Delivery Address</label>
+                        <textarea id="checkoutAddress" placeholder="Enter your full delivery address..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="checkoutPhone" placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <select id="checkoutPayment" required>
+                            <option value="Cash on Delivery">Cash on Delivery (COD)</option>
+                            <option value="Net Banking">Net Banking</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">Place Order</button>
+                        <button type="button" class="cancel-btn" onclick="closeCheckoutModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="orderHistoryModal" class="modal" style="display: none; z-index: 9999;">
+        <div class="modal-overlay" onclick="closeOrderHistoryModal()"></div>
+        <div class="modal-content">
+            <button type="button" class="modal-close" onclick="closeOrderHistoryModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body">
+                <h2 style="margin-bottom: 20px;">My Order History</h2>
+                <div id="orderHistoryContainer" style="max-height: 60vh; overflow-y: auto;">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner-inner"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
